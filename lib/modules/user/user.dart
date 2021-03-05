@@ -30,7 +30,6 @@ class User implements ModelInterface {
   List<AttributeValues> attributeValues;
   @Column()
   UserCredentials userCredentials;
-
   @Column()
   List<OrganisationUnit> organisationUnits;
 
@@ -139,6 +138,40 @@ class User implements ModelInterface {
         .firstWhere((attr) => attr.attribute == attribute)
         .value;
   }
+
+  hasPermission(List<String> permissions) {
+    bool has_permission = false;
+    this.userCredentials.userRoles.forEach((role) {
+      role.authorities.forEach((auth) {
+        if (permissions.contains(auth)) {
+          has_permission = true;
+        }
+      });
+    });
+    return has_permission;
+  }
+}
+
+@Model
+class UserRole {
+  String id;
+  String name;
+  List<dynamic> authorities;
+  UserRole({this.id, this.name, this.authorities});
+
+  UserRole.fromJson(json) {
+    this.id = json['id'];
+    this.name = json['name'];
+    this.authorities = json['authorities'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return  {
+      "id":this.id,
+      "name":this.name,
+      "authorities":this.authorities
+    };
+  }
 }
 
 @Model
@@ -184,6 +217,7 @@ class UserCredentials {
   bool selfRegistered;
   bool favorite;
   String username;
+  List<UserRole> userRoles;
 
   UserCredentials({
     this.code,
@@ -202,6 +236,7 @@ class UserCredentials {
     this.selfRegistered,
     this.favorite,
     this.username,
+    this.userRoles
   });
 
   UserCredentials.fromJson(Map<String, dynamic> json) {
@@ -221,6 +256,12 @@ class UserCredentials {
     selfRegistered = json['selfRegistered'];
     favorite = json['favorite'];
     username = json['username'];
+    if (json['userRoles'] != null) {
+      userRoles = new List<UserRole>();
+      json['userRoles']
+          .forEach((role) => {userRoles.add(new UserRole.fromJson(role))});
+      // new UserRole.fromJson(json['userRoles']);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -241,6 +282,9 @@ class UserCredentials {
     data['selfRegistered'] = this.selfRegistered;
     data['favorite'] = this.favorite;
     data['username'] = this.username;
+    if (this.userRoles != null) {
+      data['userRoles'] = this.userRoles.map((role) => role.toJson());
+    }
     return data;
   }
 }
