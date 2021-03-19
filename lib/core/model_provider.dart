@@ -108,7 +108,7 @@ class ModelProvider extends ChangeNotifier {
 
   Future<Null> handleDHIS2UploadError<T>(DioError e) async{
     if(e.response != null) {
-      final int code = e.response.data['httpStatusCode'];
+      final int code = int.parse(e.response.data['httpStatusCode'].toString());
       final String httpStatus = e.response.data['httpStatus'];
       final String status = e.response.data['status'];
       List<Map<String, dynamic>> summaries;

@@ -148,7 +148,6 @@ class DatastoreAdapterModel extends ModelProvider{
       try{
         results.add(getObject<T>(jsonDecode(element.value)));
       }catch(e, s){
-        dev.log(jsonEncode(element.value));
         print(s);
       }
     });
