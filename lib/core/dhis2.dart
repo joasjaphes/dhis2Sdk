@@ -69,6 +69,13 @@ class DHIS2 {
     return changeNotifierProviders;
   }
 
+    static setCredentials(CredentialImport.Credential credentials) async{
+    DHIS2.isLogingIn = true;
+    DHIS2.credentials = credentials;
+    await DHIS2.Credential.initialize<CredentialImport.Credential>();
+    // return currentUser;
+  }
+
   static login(CredentialImport.Credential credentials) async{
     DHIS2.isLogingIn = true;
     DHIS2.credentials = credentials;
