@@ -72,7 +72,16 @@ class DHIS2 {
     static setCredentials(CredentialImport.Credential credentials) async{
     DHIS2.isLogingIn = true;
     DHIS2.credentials = credentials;
+    await DHIS2.Datastore.initialize<DatastoreImport.DataStore>();
+
     await DHIS2.Credential.initialize<CredentialImport.Credential>();
+
+    // await DHIS2.OrganisationUnit.initialize<OrgUnitImport.OrganisationUnit>();
+
+    await DHIS2.Event.initialize<EventImport.Event>();
+
+    await DHIS2.Tracker.initialize<TrackerImport.TrackedEntityInstance>();
+    await DHIS2.User.save<CredentialImport.Credential>(credentials);
     // return currentUser;
   }
 
