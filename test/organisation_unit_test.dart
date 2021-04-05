@@ -30,8 +30,6 @@ void main() {
     expect(organisationUnit.level, 4);
 
     Map<String, Map<String, dynamic>> orgMap = getDBMap<OrganisationUnit>(organisationUnit);
-    print(jsonEncode((orgMap['organisationunit'])));
-    dev.log(jsonEncode((orgMap['organisationunit'])));
     expect(orgMap['organisationunit'] != null, true);
     expect(orgMap['organisationunit']['parent'].toString().contains('qtr8GGlm4gg'), true);
     expect(orgMap['organisationunit']['level'], 4);
