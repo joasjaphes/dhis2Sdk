@@ -20,7 +20,7 @@ class UserModel extends ModelProvider {
       if (response.statusCode == 200) {
         // If the server did return a 200 OK response,
         // then parse the JSON.
-        print('user ${response.data}');
+
         currentUser = User.fromJson(response.data);
         if (currentUser.attributeValues != null) {
           currentUser.attributeValues.map((e) => AttributeValues.fromJson(e));

@@ -171,10 +171,7 @@ class ModelProvider extends ChangeNotifier {
       }).toList()
     };
     var dataToSave = payload[onlineQuery.endpoint][0];
-    printWrapped('Payload ${json.encode(dataToSave)}');
-    printWrapped(('url $url'));
     Response<dynamic> response = await this.client.post(url, dataToSave);
-    printWrapped('response $response');
     return response;
   }
 
