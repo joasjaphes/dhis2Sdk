@@ -123,8 +123,7 @@ class DatabaseHelper {
     var dbClient = await db;
     String whereClause = "";
     if(where.length > 0){
-    String deleted = "deleted != 1";
-      whereClause = "WHERE ${where.join(" AND ")} AND $deleted";
+      whereClause = "WHERE ${where.join(" AND ")}";
     }
 
     String selectClause = "*";
