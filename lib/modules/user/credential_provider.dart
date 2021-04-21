@@ -13,7 +13,7 @@ class CredentialModel  extends ModelProvider{
       if(credentialList.length != 0 ){
         DHIS2.credentials = credentialList.first;
         List<User> users = await DHIS2.User.getAll<User>();
-        return users.first;
+        return users.firstWhere((user) => user.userCredentials.username == DHIS2.credentials.username);
 
       }
     }catch(e, s){
