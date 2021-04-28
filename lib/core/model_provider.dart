@@ -51,6 +51,7 @@ class ModelProvider extends ChangeNotifier {
       });
     }
     String url = credential.url + '/api/${onlineQuery.endpoint}.json$parameters&paging=false';
+    print('url $url');
     Response<dynamic> response = await this.client.get(url);
     dynamic result = response.data[onlineQuery.endpoint];
     if(onlineQuery.resultField == null){

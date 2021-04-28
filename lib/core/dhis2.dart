@@ -73,7 +73,7 @@ class DHIS2 {
     DHIS2.isLogingIn = true;
     DHIS2.credentials = credentials;
     await DHIS2.Datastore.initialize<DatastoreImport.DataStore>();
-
+    await DHIS2.User.initialize<UserImport.User>();
     await DHIS2.Credential.initialize<CredentialImport.Credential>();
 
     // await DHIS2.OrganisationUnit.initialize<OrgUnitImport.OrganisationUnit>();
